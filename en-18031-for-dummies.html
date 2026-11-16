@@ -185,9 +185,10 @@ figcaption{font-size:15px;color:var(--muted);margin-top:16px}
 
 /* steps */
 /* 每張卡分三列（提供／步驟／實驗室），用 subgrid 讓同一排的色塊等高 */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;column-gap:22px;row-gap:18px;margin-top:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;column-gap:44px;row-gap:22px;margin-top:14px}
 .fignote{margin:0 0 6px;font-size:15px;color:var(--muted)}
-.ph-more{grid-column:1/-1;margin-top:10px;appearance:none;-webkit-appearance:none;font:inherit;font-size:14px;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+.ph-foot{grid-column:1/-1;align-self:start;margin-top:10px}
+.ph-more{display:block;width:100%;appearance:none;-webkit-appearance:none;font:inherit;font-size:14px;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
 .ph-more::after{content:"＋";margin-left:6px}
 .ph-more[aria-expanded="true"]{background:var(--teal-l);border-color:var(--teal)}
 .ph-more[aria-expanded="true"]::after{content:"－"}
@@ -200,22 +201,40 @@ figcaption{font-size:15px;color:var(--muted);margin-top:16px}
 .stage-panel p,.stage-panel li{font-size:15.5px;color:var(--muted)}
 .stage-panel p{margin:0 0 10px}
 .stage-panel ul{margin:0 0 10px}
-.phase{grid-column:span 2;grid-row:span 5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;column-gap:10px;row-gap:0;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg-2)}
+.phase{grid-column:span 2;grid-row:span 5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;column-gap:8px;row-gap:0;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg-2)}
 .phase .ph{grid-column:1/-1;font-weight:700;color:var(--navy);font-size:15px;padding:0 2px 10px}
 .phase .ph span{color:var(--quiet);font-weight:500;font-size:13px;margin-left:8px}
 .phase.loop .ph{color:var(--orange-d)}
 .step{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
 @supports not (grid-template-rows:subgrid){.phase{grid-template-columns:1fr 1fr}.step{grid-template-rows:84px 1fr 84px}}
-.step .give{background:var(--orange-l);padding:10px 9px;font-size:13px;color:var(--muted)}
+.step .give{background:var(--orange-l);padding:10px 7px;font-size:13px;color:var(--muted)}
 .step .mid{padding:12px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .step .num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;align-items:center;justify-content:center;font-size:14px}
 .step.loop .num{background:var(--orange)}
 .step .nm{display:block;font-weight:700;color:var(--navy);font-size:14.5px;line-height:1.45;margin-top:8px}
-.step .lab{background:var(--teal-l);padding:10px 9px;font-size:13px;color:var(--ink)}
+.step .lab{background:var(--teal-l);padding:10px 7px;font-size:13px;color:var(--ink)}
 .step small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
 .step .give small{color:var(--orange-d)} .step .lab small{color:var(--teal)}
-.loopnote{margin-top:10px;font-size:14px;color:var(--orange-d);font-weight:700}
-@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}}
+.loopnote{margin:10px 0 0;font-size:14px;color:var(--orange-d);font-weight:700;text-align:center}
+.loopnote::before{content:"↻ ";font-size:16px}
+/* 階段之間的箭頭（會動） */
+.phase{position:relative}
+.phase[data-n]::after{content:"";position:absolute;width:26px;height:26px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 12h15M12 5l7 7-7 7' fill='none' stroke='%23EA6023' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+.phase[data-n="1"]::after,.phase[data-n="3"]::after{top:50%;right:-36px;animation:nudge-r 1.2s ease-in-out infinite}
+.phase[data-n="2"]::after{top:50%;right:-31px;width:22px;height:22px;animation:nudge-r 1.2s ease-in-out infinite}
+.phase[data-n="4"]::after{display:none}
+@keyframes nudge-r{0%,100%{transform:translate(-4px,-50%);opacity:.55}50%{transform:translate(4px,-50%);opacity:1}}
+@keyframes nudge-d{0%,100%{transform:translate(-50%,-4px) rotate(90deg);opacity:.55}50%{transform:translate(-50%,4px) rotate(90deg);opacity:1}}
+/* 檢測階段：旋轉閃動的外框 */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.phase.loop{border:3px solid transparent;padding:8px;background:linear-gradient(var(--orange-l),var(--orange-l)) padding-box,conic-gradient(from var(--ang),var(--orange) 0deg,#FFD9C7 90deg,var(--orange) 180deg,#FFD9C7 270deg,var(--orange) 360deg) border-box;animation:spin 2.4s linear infinite,glow 1.6s ease-in-out infinite}
+@keyframes spin{to{--ang:360deg}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(234,96,35,0)}50%{box-shadow:0 0 18px 3px rgba(234,96,35,.38)}}
+@media(prefers-reduced-motion:reduce){.phase[data-n]::after,.phase.loop{animation:none}}
+@media(max-width:980px){
+  .steps{grid-template-columns:1fr 1fr;row-gap:44px}
+  .phase[data-n="1"]::after,.phase[data-n="2"]::after,.phase[data-n="3"]::after{top:auto;right:auto;left:50%;bottom:-36px;width:26px;height:26px;animation:nudge-d 1.2s ease-in-out infinite}
+}
 @media(max-width:560px){.steps{grid-template-columns:1fr}.phase{grid-column:span 1;grid-row:span 8}.phase .step+.step{margin-top:10px}}
 
 /* stages：可收合 */
@@ -503,32 +522,32 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <p class="ftitle">EN&nbsp;18031 檢測：八個步驟</p>
       <p class="fignote">點選各階段的「展開說明」，查看該階段的工作重點。</p>
       <div class="steps">
-        <div class="phase"><div class="ph">準備階段<span>第 1–2 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>裝置、App、伺服器存取資訊與技術文件</div><div class="mid"><span class="num">1</span><span class="nm">樣品與架構交付</span></div><div class="lab"><small>實驗室執行</small>確認產品架構</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>技術文件</div><div class="mid"><span class="num">2</span><span class="nm">標準差距分析</span></div><div class="lab"><small>實驗室執行</small>逐項比對標準</div></div>
-          <button class="ph-more" type="button" id="stbtn-1" aria-expanded="true" aria-controls="stage-1">展開說明</button>
+        <div class="phase" data-n="1"><div class="ph">準備階段</div>
+          <div class="step"><div class="mid"><span class="num">1</span><span class="nm">樣品與架構交付</span></div><div class="give"><small>您需要提供</small>裝置、App、伺服器存取資訊與技術文件</div><div class="lab"><small>實驗室執行</small>確認產品架構</div></div>
+          <div class="step"><div class="mid"><span class="num">2</span><span class="nm">標準差距分析</span></div><div class="give"><small>您需要提供</small>技術文件</div><div class="lab"><small>實驗室執行</small>逐項比對標準</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-1" aria-expanded="true" aria-controls="stage-1">展開說明</button></div>
         </div>
         <div class="stage-panel" id="stage-1" role="region" aria-labelledby="stbtn-1">
-          <h4>準備階段<span>第 1–2 步</span></h4>
+          <h4>準備階段</h4>
           <p>確認適用哪幾份標準、走自我宣告還是公告機構，並盤點產品要保護的資產：密碼與金鑰等安全資產、網路功能、個人資料、金融資料。接著由實驗室進行差距分析，將技術文件與標準逐項比對，優先識別影響最大的差距。</p>
         </div>
-        <div class="phase"><div class="ph">準備資料階段<span>第 3–4 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>不適用理由、開發紀錄</div><div class="mid"><span class="num">3</span><span class="nm">適用性判定與安全設計審查</span></div><div class="lab"><small>實驗室執行</small>決策樹判定、設計審查</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>韌體與 App 版本</div><div class="mid"><span class="num">4</span><span class="nm">SBOM 建立<br>與元件掃描</span></div><div class="lab"><small>實驗室執行</small>掃描已知漏洞</div></div>
-          <button class="ph-more" type="button" id="stbtn-2" aria-expanded="true" aria-controls="stage-2">展開說明</button>
+        <div class="phase" data-n="2"><div class="ph">準備資料階段</div>
+          <div class="step"><div class="mid"><span class="num">3</span><span class="nm">適用性判定與安全設計審查</span></div><div class="give"><small>您需要提供</small>不適用理由、開發紀錄</div><div class="lab"><small>實驗室執行</small>決策樹判定、設計審查</div></div>
+          <div class="step"><div class="mid"><span class="num">4</span><span class="nm">SBOM 建立<br>與元件掃描</span></div><div class="give"><small>您需要提供</small>韌體與 App 版本</div><div class="lab"><small>實驗室執行</small>掃描已知漏洞</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-2" aria-expanded="true" aria-controls="stage-2">展開說明</button></div>
         </div>
         <div class="stage-panel" id="stage-2" role="region" aria-labelledby="stbtn-2">
-          <h4>準備資料階段<span>第 3–4 步</span></h4>
+          <h4>準備資料階段</h4>
           <p>EN&nbsp;18031 的每一項要求，均依標準提供的決策樹判定，結果分為不適用、通過、不通過三種。判定為「不適用」時，製造商須提出理由，並經實驗室審查確認。</p>
           <p>此階段須備齊的資料包括：每項要求的決策樹路徑與理由、安全開發流程（SDLC）紀錄、SBOM（軟體物料清單），以及測試樣品。完整清單可參考 <a href="https://securevectorlab.com/zh-hant/en-18031">EN&nbsp;18031 檢測頁</a>的送測準備清單。</p>
         </div>
-        <div class="phase loop"><div class="ph">檢測階段<span>第 5–6 步</span></div>
-          <div class="step loop"><div class="give"><small>您需要提供</small>測試樣品與帳號</div><div class="mid"><span class="num">5</span><span class="nm">安全測試<br>（完整性與充分性）</span></div><div class="lab"><small>實驗室執行</small>實測驗證與滲透測試</div></div>
-          <div class="step loop"><div class="give"><small>您需要提供</small>修補發現的問題</div><div class="mid"><span class="num">6</span><span class="nm">修補與複測</span></div><div class="lab"><small>實驗室執行</small>複測修補結果</div></div>
-          <button class="ph-more" type="button" id="stbtn-3" aria-expanded="true" aria-controls="stage-3">展開說明</button>
+        <div class="phase loop" data-n="3"><div class="ph">檢測階段</div>
+          <div class="step loop"><div class="mid"><span class="num">5</span><span class="nm">安全測試<br>（完整性與充分性）</span></div><div class="give"><small>您需要提供</small>測試樣品與帳號</div><div class="lab"><small>實驗室執行</small>實測驗證與滲透測試</div></div>
+          <div class="step loop"><div class="mid"><span class="num">6</span><span class="nm">修補與複測</span></div><div class="give"><small>您需要提供</small>修補發現的問題</div><div class="lab"><small>實驗室執行</small>複測修補結果</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-3" aria-expanded="true" aria-controls="stage-3">展開說明</button><p class="loopnote">修補後回到安全測試複測，直到通過。</p></div>
         </div>
         <div class="stage-panel loop" id="stage-3" role="region" aria-labelledby="stbtn-3">
-          <h4>檢測階段<span>第 5–6 步</span></h4>
+          <h4>檢測階段</h4>
           <p>實驗室對每項要求執行三層評鑑：</p>
           <ul>
             <li><b>文件審查</b>（概念評鑑）：決策樹的路徑與理由是否成立。</li>
@@ -537,18 +556,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           </ul>
           <p>發現問題後由製造商修補，再由實驗室複測。產品上市時不應含有可被利用的已知漏洞：元件含已知漏洞者，須修補，或經評估確認無法被利用。此階段可能需進行多輪修補與複測。各項防護機制的檢測方式，請參閱 <a href="https://securevectorlab.com/zh-hant/news/en-18031-testing-process">《EN&nbsp;18031 檢測項目詳解：14 項資安機制與實驗室實際檢測範圍》</a>。</p>
         </div>
-        <div class="phase"><div class="ph">報告階段<span>第 7–8 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>確認檢測結果</div><div class="mid"><span class="num">7</span><span class="nm">報告出具<br>必要時交由公告機構評估</span></div><div class="lab"><small>實驗室執行</small>出具 ISO/IEC 17025 檢測報告</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>保存文件供歐盟調閱</div><div class="mid"><span class="num">8</span><span class="nm">上市合規與文件保存</span></div><div class="lab"><small>實驗室執行</small>提供完整檢測文件</div></div>
-          <button class="ph-more" type="button" id="stbtn-4" aria-expanded="true" aria-controls="stage-4">展開說明</button>
+        <div class="phase" data-n="4"><div class="ph">報告階段</div>
+          <div class="step"><div class="mid"><span class="num">7</span><span class="nm">報告出具<br>必要時交由公告機構評估</span></div><div class="give"><small>您需要提供</small>確認檢測結果</div><div class="lab"><small>實驗室執行</small>出具 ISO/IEC 17025 檢測報告</div></div>
+          <div class="step"><div class="mid"><span class="num">8</span><span class="nm">上市合規與文件保存</span></div><div class="give"><small>您需要提供</small>保存文件供歐盟調閱</div><div class="lab"><small>實驗室執行</small>提供完整檢測文件</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-4" aria-expanded="true" aria-controls="stage-4">展開說明</button></div>
         </div>
         <div class="stage-panel" id="stage-4" role="region" aria-labelledby="stbtn-4">
-          <h4>報告階段<span>第 7–8 步</span></h4>
+          <h4>報告階段</h4>
           <p>實驗室出具 ISO/IEC 17025 檢測報告。自我宣告的產品，報告納入技術文件，由製造商簽署 EU DoC；涉及限制條件的產品，再由公告機構審查並核發證書。</p>
           <p>產品投放市場後，技術文件與 EU DoC 須保存 10 年。歐盟主管機關可要求製造商、進口商或歐盟授權代表限期提供；無法提出時，可能面臨罰款或產品下架。</p>
         </div>
       </div>
-      <p class="loopnote">第 5、6 步：修補後回到安全測試複測，直到通過。</p>
   </section>
 
   <section class="part" id="time">

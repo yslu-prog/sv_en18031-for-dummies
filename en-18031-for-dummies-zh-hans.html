@@ -185,9 +185,10 @@ figcaption{font-size:15px;color:var(--muted);margin-top:16px}
 
 /* steps */
 /* 每张卡分三列（提供／步骤／实验室），用 subgrid 让同一排的色块等高 */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;column-gap:22px;row-gap:18px;margin-top:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;column-gap:44px;row-gap:22px;margin-top:14px}
 .fignote{margin:0 0 6px;font-size:15px;color:var(--muted)}
-.ph-more{grid-column:1/-1;margin-top:10px;appearance:none;-webkit-appearance:none;font:inherit;font-size:14px;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+.ph-foot{grid-column:1/-1;align-self:start;margin-top:10px}
+.ph-more{display:block;width:100%;appearance:none;-webkit-appearance:none;font:inherit;font-size:14px;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
 .ph-more::after{content:"＋";margin-left:6px}
 .ph-more[aria-expanded="true"]{background:var(--teal-l);border-color:var(--teal)}
 .ph-more[aria-expanded="true"]::after{content:"－"}
@@ -200,22 +201,40 @@ figcaption{font-size:15px;color:var(--muted);margin-top:16px}
 .stage-panel p,.stage-panel li{font-size:15.5px;color:var(--muted)}
 .stage-panel p{margin:0 0 10px}
 .stage-panel ul{margin:0 0 10px}
-.phase{grid-column:span 2;grid-row:span 5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;column-gap:10px;row-gap:0;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg-2)}
+.phase{grid-column:span 2;grid-row:span 5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;column-gap:8px;row-gap:0;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--bg-2)}
 .phase .ph{grid-column:1/-1;font-weight:700;color:var(--navy);font-size:15px;padding:0 2px 10px}
 .phase .ph span{color:var(--quiet);font-weight:500;font-size:13px;margin-left:8px}
 .phase.loop .ph{color:var(--orange-d)}
 .step{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
 @supports not (grid-template-rows:subgrid){.phase{grid-template-columns:1fr 1fr}.step{grid-template-rows:84px 1fr 84px}}
-.step .give{background:var(--orange-l);padding:10px 9px;font-size:13px;color:var(--muted)}
+.step .give{background:var(--orange-l);padding:10px 7px;font-size:13px;color:var(--muted)}
 .step .mid{padding:12px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .step .num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;align-items:center;justify-content:center;font-size:14px}
 .step.loop .num{background:var(--orange)}
 .step .nm{display:block;font-weight:700;color:var(--navy);font-size:14.5px;line-height:1.45;margin-top:8px}
-.step .lab{background:var(--teal-l);padding:10px 9px;font-size:13px;color:var(--ink)}
+.step .lab{background:var(--teal-l);padding:10px 7px;font-size:13px;color:var(--ink)}
 .step small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
 .step .give small{color:var(--orange-d)} .step .lab small{color:var(--teal)}
-.loopnote{margin-top:10px;font-size:14px;color:var(--orange-d);font-weight:700}
-@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}}
+.loopnote{margin:10px 0 0;font-size:14px;color:var(--orange-d);font-weight:700;text-align:center}
+.loopnote::before{content:"↻ ";font-size:16px}
+/* 阶段之间的箭头（会动） */
+.phase{position:relative}
+.phase[data-n]::after{content:"";position:absolute;width:26px;height:26px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 12h15M12 5l7 7-7 7' fill='none' stroke='%23EA6023' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center/contain;pointer-events:none}
+.phase[data-n="1"]::after,.phase[data-n="3"]::after{top:50%;right:-36px;animation:nudge-r 1.2s ease-in-out infinite}
+.phase[data-n="2"]::after{top:50%;right:-31px;width:22px;height:22px;animation:nudge-r 1.2s ease-in-out infinite}
+.phase[data-n="4"]::after{display:none}
+@keyframes nudge-r{0%,100%{transform:translate(-4px,-50%);opacity:.55}50%{transform:translate(4px,-50%);opacity:1}}
+@keyframes nudge-d{0%,100%{transform:translate(-50%,-4px) rotate(90deg);opacity:.55}50%{transform:translate(-50%,4px) rotate(90deg);opacity:1}}
+/* 检测阶段：旋转闪动的外框 */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.phase.loop{border:3px solid transparent;padding:8px;background:linear-gradient(var(--orange-l),var(--orange-l)) padding-box,conic-gradient(from var(--ang),var(--orange) 0deg,#FFD9C7 90deg,var(--orange) 180deg,#FFD9C7 270deg,var(--orange) 360deg) border-box;animation:spin 2.4s linear infinite,glow 1.6s ease-in-out infinite}
+@keyframes spin{to{--ang:360deg}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(234,96,35,0)}50%{box-shadow:0 0 18px 3px rgba(234,96,35,.38)}}
+@media(prefers-reduced-motion:reduce){.phase[data-n]::after,.phase.loop{animation:none}}
+@media(max-width:980px){
+  .steps{grid-template-columns:1fr 1fr;row-gap:44px}
+  .phase[data-n="1"]::after,.phase[data-n="2"]::after,.phase[data-n="3"]::after{top:auto;right:auto;left:50%;bottom:-36px;width:26px;height:26px;animation:nudge-d 1.2s ease-in-out infinite}
+}
 @media(max-width:560px){.steps{grid-template-columns:1fr}.phase{grid-column:span 1;grid-row:span 8}.phase .step+.step{margin-top:10px}}
 
 /* stages：可收合 */
@@ -503,32 +522,32 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <p class="ftitle">EN&nbsp;18031 检测：八个步骤</p>
       <p class="fignote">点击各阶段的“展开说明”，查看该阶段的工作重点。</p>
       <div class="steps">
-        <div class="phase"><div class="ph">准备阶段<span>第 1–2 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>设备、App、服务器访问信息与技术文件</div><div class="mid"><span class="num">1</span><span class="nm">样品与架构交付</span></div><div class="lab"><small>实验室执行</small>确认产品架构</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>技术文件</div><div class="mid"><span class="num">2</span><span class="nm">标准差距分析</span></div><div class="lab"><small>实验室执行</small>逐项比对标准</div></div>
-          <button class="ph-more" type="button" id="stbtn-1" aria-expanded="true" aria-controls="stage-1">展开说明</button>
+        <div class="phase" data-n="1"><div class="ph">准备阶段</div>
+          <div class="step"><div class="mid"><span class="num">1</span><span class="nm">样品与架构交付</span></div><div class="give"><small>您需要提供</small>设备、App、服务器访问信息与技术文件</div><div class="lab"><small>实验室执行</small>确认产品架构</div></div>
+          <div class="step"><div class="mid"><span class="num">2</span><span class="nm">标准差距分析</span></div><div class="give"><small>您需要提供</small>技术文件</div><div class="lab"><small>实验室执行</small>逐项比对标准</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-1" aria-expanded="true" aria-controls="stage-1">展开说明</button></div>
         </div>
         <div class="stage-panel" id="stage-1" role="region" aria-labelledby="stbtn-1">
-          <h4>准备阶段<span>第 1–2 步</span></h4>
+          <h4>准备阶段</h4>
           <p>确认适用哪几份标准、走自我宣告还是公告机构，并盘点产品要保护的资产：密码与密钥等安全资产、网络功能、个人信息、金融数据。接着由实验室进行差距分析，将技术文件与标准逐项比对，优先识别影响最大的差距。</p>
         </div>
-        <div class="phase"><div class="ph">准备资料阶段<span>第 3–4 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>不适用理由、开发记录</div><div class="mid"><span class="num">3</span><span class="nm">适用性判定与安全设计审核</span></div><div class="lab"><small>实验室执行</small>决策树判定、设计审核</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>固件与 App 版本</div><div class="mid"><span class="num">4</span><span class="nm">SBOM 建立<br>与组件扫描</span></div><div class="lab"><small>实验室执行</small>扫描已知漏洞</div></div>
-          <button class="ph-more" type="button" id="stbtn-2" aria-expanded="true" aria-controls="stage-2">展开说明</button>
+        <div class="phase" data-n="2"><div class="ph">准备资料阶段</div>
+          <div class="step"><div class="mid"><span class="num">3</span><span class="nm">适用性判定与安全设计审核</span></div><div class="give"><small>您需要提供</small>不适用理由、开发记录</div><div class="lab"><small>实验室执行</small>决策树判定、设计审核</div></div>
+          <div class="step"><div class="mid"><span class="num">4</span><span class="nm">SBOM 建立<br>与组件扫描</span></div><div class="give"><small>您需要提供</small>固件与 App 版本</div><div class="lab"><small>实验室执行</small>扫描已知漏洞</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-2" aria-expanded="true" aria-controls="stage-2">展开说明</button></div>
         </div>
         <div class="stage-panel" id="stage-2" role="region" aria-labelledby="stbtn-2">
-          <h4>准备资料阶段<span>第 3–4 步</span></h4>
+          <h4>准备资料阶段</h4>
           <p>EN&nbsp;18031 的每一项要求，均依标准提供的决策树判定，结果分为不适用、通过、不通过三种。判定为“不适用”时，制造商须提出理由，并经实验室审核确认。</p>
           <p>此阶段须备齐的资料包括：每项要求的决策树路径与理由、安全开发流程（SDLC）记录、SBOM（软件物料清单），以及测试样品。完整清单可参考 <a href="https://securevectorlab.com/zh-hans/en-18031">EN&nbsp;18031 检测页面</a>的送测准备清单。</p>
         </div>
-        <div class="phase loop"><div class="ph">检测阶段<span>第 5–6 步</span></div>
-          <div class="step loop"><div class="give"><small>您需要提供</small>测试样品与账号</div><div class="mid"><span class="num">5</span><span class="nm">安全测试<br>（完整性与充分性）</span></div><div class="lab"><small>实验室执行</small>实测验证与渗透测试</div></div>
-          <div class="step loop"><div class="give"><small>您需要提供</small>修复发现的问题</div><div class="mid"><span class="num">6</span><span class="nm">修复与复测</span></div><div class="lab"><small>实验室执行</small>复测修复结果</div></div>
-          <button class="ph-more" type="button" id="stbtn-3" aria-expanded="true" aria-controls="stage-3">展开说明</button>
+        <div class="phase loop" data-n="3"><div class="ph">检测阶段</div>
+          <div class="step loop"><div class="mid"><span class="num">5</span><span class="nm">安全测试<br>（完整性与充分性）</span></div><div class="give"><small>您需要提供</small>测试样品与账号</div><div class="lab"><small>实验室执行</small>实测验证与渗透测试</div></div>
+          <div class="step loop"><div class="mid"><span class="num">6</span><span class="nm">修复与复测</span></div><div class="give"><small>您需要提供</small>修复发现的问题</div><div class="lab"><small>实验室执行</small>复测修复结果</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-3" aria-expanded="true" aria-controls="stage-3">展开说明</button><p class="loopnote">修复后回到安全测试复测，直到通过。</p></div>
         </div>
         <div class="stage-panel loop" id="stage-3" role="region" aria-labelledby="stbtn-3">
-          <h4>检测阶段<span>第 5–6 步</span></h4>
+          <h4>检测阶段</h4>
           <p>实验室对每项要求执行三层评估：</p>
           <ul>
             <li><b>文件审核</b>（概念评估）：决策树的路径与理由是否成立。</li>
@@ -537,18 +556,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           </ul>
           <p>发现问题后由制造商修复，再由实验室复测。产品上市时不应含有可被利用的已知漏洞：组件含已知漏洞者，须修复，或经评估确认无法被利用。此阶段可能需进行多轮修复与复测。各项防护机制的检测方式，请参阅 <a href="https://securevectorlab.com/zh-hans/news/en-18031-testing-process">《EN&nbsp;18031 检测项目详解：14 项安全机制与实验室实际检测范围》</a>。</p>
         </div>
-        <div class="phase"><div class="ph">报告阶段<span>第 7–8 步</span></div>
-          <div class="step"><div class="give"><small>您需要提供</small>确认检测结果</div><div class="mid"><span class="num">7</span><span class="nm">报告出具<br>必要时交由公告机构评估</span></div><div class="lab"><small>实验室执行</small>出具 ISO/IEC 17025 检测报告</div></div>
-          <div class="step"><div class="give"><small>您需要提供</small>保存文件供欧盟调取</div><div class="mid"><span class="num">8</span><span class="nm">上市合规与文件保存</span></div><div class="lab"><small>实验室执行</small>提供完整检测文件</div></div>
-          <button class="ph-more" type="button" id="stbtn-4" aria-expanded="true" aria-controls="stage-4">展开说明</button>
+        <div class="phase" data-n="4"><div class="ph">报告阶段</div>
+          <div class="step"><div class="mid"><span class="num">7</span><span class="nm">报告出具<br>必要时交由公告机构评估</span></div><div class="give"><small>您需要提供</small>确认检测结果</div><div class="lab"><small>实验室执行</small>出具 ISO/IEC 17025 检测报告</div></div>
+          <div class="step"><div class="mid"><span class="num">8</span><span class="nm">上市合规与文件保存</span></div><div class="give"><small>您需要提供</small>保存文件供欧盟调取</div><div class="lab"><small>实验室执行</small>提供完整检测文件</div></div>
+          <div class="ph-foot"><button class="ph-more" type="button" id="stbtn-4" aria-expanded="true" aria-controls="stage-4">展开说明</button></div>
         </div>
         <div class="stage-panel" id="stage-4" role="region" aria-labelledby="stbtn-4">
-          <h4>报告阶段<span>第 7–8 步</span></h4>
+          <h4>报告阶段</h4>
           <p>实验室出具 ISO/IEC 17025 检测报告。自我宣告的产品，报告纳入技术文件，由制造商签署 EU DoC；涉及限制条件的产品，再由公告机构审核并颁发证书。</p>
           <p>产品投放市场后，技术文件与 EU DoC 须保存 10 年。欧盟主管机构可要求制造商、进口商或欧盟授权代表限期提供；无法提出时，可能面临罚款或产品下架。</p>
         </div>
       </div>
-      <p class="loopnote">第 5、6 步：修复后回到安全测试复测，直到通过。</p>
   </section>
 
   <section class="part" id="time">
