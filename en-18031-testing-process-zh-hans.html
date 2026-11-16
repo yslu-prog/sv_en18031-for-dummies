@@ -505,6 +505,25 @@ ol.s8 li.lp i{position:absolute;left:25%;right:25%;bottom:8px;height:24px;border
 ol.s8 li.lp i::before,ol.s8 li.lp i::after{content:"";position:absolute;bottom:-9px;border-top:8px solid var(--orange);border-left:6px solid transparent;border-right:6px solid transparent}
 ol.s8 li.lp i::before{left:-7px}
 ol.s8 li.lp i::after{right:-7px}
+/* 决策树结果：左右并排 */
+.dt-out{flex-direction:row}
+.dt-out .chip{flex:1 1 0;display:flex;align-items:center;justify-content:center;min-height:46px}
+@media(max-width:640px){.dt-out{flex-direction:column}}
+/* 缺口卡片：建议准备 加强 */
+.gap dt:nth-of-type(3){color:var(--orange-d)}
+.gap dd:nth-of-type(3){color:var(--ink);font-weight:500}
+/* 送测文档清单 */
+.ck{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin:14px 0 8px}
+.ckg{border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:14px 18px 6px;background:var(--bg-2)}
+.ckt{margin:0 0 6px;font-weight:700;color:var(--teal);font-size:14.5px}
+.ckg ul{list-style:none;padding:0;margin:0 0 12px}
+.ckg li{position:relative;padding-left:26px;font-size:15.5px;margin-bottom:6px}
+.ckg li::before{content:"";position:absolute;left:0;top:5px;width:14px;height:14px;border:2px solid var(--teal);border-radius:3px;background:#fff}
+.ckn{font-size:14.5px;color:var(--quiet)}
+@media(max-width:720px){.ck{grid-template-columns:1fr}}
+@media(min-width:641px){.dt-flow::before{left:25%;margin-left:-6px}}
+a.btnline{display:inline-block;border:2px solid var(--teal);color:var(--teal);font-weight:700;text-decoration:none;border-radius:8px;padding:9px 18px}
+a.btnline:hover{background:var(--teal);color:#fff}
 </style>
 </head>
 <body>
@@ -739,13 +758,13 @@ ol.s8 li.lp i::after{right:-7px}
       <div class="ly" id="ly2">
         <div class="lh"><span class="ln">2</span><div><h4>实机核查</h4><span class="en">功能完整性评估</span></div></div>
         <div class="lc"><span class="k">实验室确认</span>文档是否完整涵盖产品实际具备的接口与机制。</div>
-        <div class="lc"><span class="k">建议准备</span>与上市版本一致的测试样品、测试账号、设置说明。</div>
+        <div class="lc"><span class="k">建议准备</span>至少 3 件与上市版本一致的测试样品、测试账号、设置说明。</div>
         <div class="lc"><span class="k">执行方式</span>实机操作、接口与服务盘点。</div>
       </div>
       <div class="ly hot" id="ly3">
         <div class="lh"><span class="ln">3</span><div><h4>攻击测试</h4><span class="en">功能充分性评估</span></div></div>
         <div class="lc"><span class="k">实验室确认</span>机制的实现，在攻击情境下是否足够。</div>
-        <div class="lc"><span class="k">建议准备</span>固件与 App 版本信息、组件清单（SBOM）。</div>
+        <div class="lc"><span class="k">建议准备</span>固件与 App 版本信息、未加密的固件与触发更新的方式、组件清单（SBOM）。</div>
         <div class="lc"><span class="k">执行方式</span>代码审查、模糊测试、渗透测试。</div>
       </div>
     </div>
@@ -804,6 +823,9 @@ ol.s8 li.lp i::after{right:-7px}
         </dl>
       </div>
     </div>
+    <h3 id="checklist">送测前的准备</h3>
+    <p>送测前的完整准备项目，可使用 EN&nbsp;18031 入口页的送测准备清单逐项勾选盘点。</p>
+    <p><a class="btnline" href="https://www.securevectors.com/zh-hans/en-18031#prep">打开送测准备清单 →</a></p>
   </section>
 
   <section class="part" id="next">
