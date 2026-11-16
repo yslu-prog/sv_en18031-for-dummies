@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 預覽用：正式上線時請刪除下一行 noindex；語言切換的連結也請改為正式網址 /zh-hant/ 與 /zh-hans/ -->
+<meta name="robots" content="noindex, nofollow">
+<title>EN 18031 懶人包｜無線產品進歐盟資安要求 3W3H 六大問題｜安合規律</title>
+<meta name="description" content="用 3W3H 六個問題看懂 EN 18031：什麼是 EN 18031、誰需要做、可以自我宣告還是需要公告機構、檢測流程、時程與費用估算，以及與 2027 年 CRA 的銜接。">
+<link rel="canonical" href="https://securevectorlab.com/zh-hant/en-18031-for-dummies">
+<link rel="alternate" hreflang="zh-Hant" href="https://securevectorlab.com/zh-hant/en-18031-for-dummies">
+<link rel="alternate" hreflang="zh-Hans" href="https://securevectorlab.com/zh-hans/en-18031-for-dummies">
+<link rel="alternate" hreflang="x-default" href="https://securevectorlab.com/zh-hant/en-18031-for-dummies">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【EN 18031 入門指南】無線產品賣歐盟，資安要求一次看懂">
+<meta property="og:description" content="用 3W3H 六個問題看懂 EN 18031：適用對象、自我宣告或公告機構、檢測流程、時程與費用。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","headline":"【EN 18031 入門指南】無線產品賣歐盟，資安要求一次看懂","description":"用 3W3H 六個問題看懂 EN 18031：什麼是 EN 18031、誰需要做、可以自我宣告還是需要公告機構、檢測流程、時程與費用估算。","datePublished":"2026-11-16","dateModified":"2026-11-16","inLanguage":"zh-Hant","mainEntityOfPage":"https://securevectorlab.com/zh-hant/en-18031-for-dummies","author":{"@type":"Organization","name":"安合規律檢驗有限公司（Secure Vectors Surveillance）"},"publisher":{"@type":"Organization","name":"Secure Vectors Surveillance — SVS Lab","url":"https://securevectorlab.com/"},"about":["EN 18031","Radio Equipment Directive","Cyber Resilience Act"]},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://securevectorlab.com/zh-hant"},{"@type":"ListItem","position":2,"name":"EN 18031 檢測","item":"https://securevectorlab.com/zh-hant/en-18031"},{"@type":"ListItem","position":3,"name":"EN 18031 入門指南","item":"https://securevectorlab.com/zh-hant/en-18031-for-dummies"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"同一項產品會同時適用好幾份 EN 18031 嗎？","acceptedAnswer":{"@type":"Answer","text":"會。三份標準對應三項不同的法規要求，各項要求累加適用。處理個人資料的連網產品，同時適用 EN 18031-1 與 -2；若還涉及金錢交易，-3 也適用。"}},
+{"@type":"Question","name":"App 可以單獨取得 EN 18031 檢測嗎？","acceptedAnswer":{"@type":"Answer","text":"不行。RED 規範的是無線電設備，單獨的 App 不是無線電設備，因此 EN 18031 沒有可檢測它的標的；App 是透過裝置與 App 之間的連線一併評估。獨立軟體自 2027 年 12 月 11 日起納入 CRA 規範；本身屬於醫療器材者，依醫療器材法規。"}},
+{"@type":"Question","name":"可以自我宣告的產品，還需要委託實驗室嗎？","acceptedAnswer":{"@type":"Answer","text":"法規未強制委託第三方實驗室，檢測可由製造商自行執行。委託 ISO/IEC 17025 實驗室，可取得第三方檢測報告並納入技術文件。"}},
+{"@type":"Question","name":"產品韌體無法更新，可以符合 EN 18031 嗎？","acceptedAnswer":{"@type":"Answer","text":"可能可以。安全更新機制（SUM）依決策樹判定；產品確實無法更新時，製造商須提出不適用理由，並經實驗室審查。理由不成立時，將列為不符合項目。"}}
+]}]}
+</script>
+<style>
+:root{
+  --navy:#0E2A44; --blue:#004F78; --teal:#0B7A80; --teal-2:#23B6BC; --teal-l:#E8F5F5;
+  --orange:#EA6023; --orange-d:#C9531A; --orange-l:#FDEEE7;
+  --ink:#14263A; --muted:#4A5B6C; --quiet:#6B7B8A; --line:#D9E3EA; --bg:#FFFFFF; --bg-2:#F4F7F9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:128px}
+body{margin:0;font-family:"Noto Sans TC",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.8;font-size:17px}
+.cjk-seg p,.cjk-seg li,.cjk-seg h1,.cjk-seg h2,.cjk-seg h3,.cjk-seg td,.cjk-seg th,.cjk-seg dd,.cjk-seg dt,.cjk-seg summary,.cjk-seg span,.cjk-seg a,.cjk-seg b{word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--blue)}
+a:hover{color:var(--orange-d)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.narrow{max-width:800px;margin:0 auto}
+h1,h2,h3{line-height:1.35;margin:0;color:var(--navy)}
+.nb{white-space:nowrap}
+/* 避免段落最後一行只剩一兩個字 */
+p,li,dd,td,th,summary,figcaption,.step .nm,.qs .q,.qs .r{text-wrap:pretty}
+h1,h2,h3,h4,.ftitle{text-wrap:balance}
+
+/* header */
+header{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:38px;width:auto}
+.logo .wm{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:10.5px;line-height:1.15;letter-spacing:.08em;color:var(--navy)}
+nav{display:flex;align-items:center;gap:22px}
+nav a{color:var(--muted);text-decoration:none;font-size:15px}
+nav a:hover{color:var(--navy)}
+nav .cta{background:var(--orange);color:#fff;padding:9px 16px;border-radius:6px;font-weight:700}
+nav .cta:hover{background:var(--orange-d);color:#fff}
+@media(max-width:900px){nav > a:not(.cta){display:none}}
+/* 語言切換 */
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.lang a{padding:6px 10px;font-size:14px;color:var(--muted);text-decoration:none;line-height:1.2}
+.lang a + a{border-left:1px solid var(--line)}
+.lang a.on{background:var(--navy);color:#fff;font-weight:700}
+.lang a:not(.on):hover{background:var(--teal-l);color:var(--teal)}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--bg-2) 0%,#fff 100%);padding:48px 0 36px;border-bottom:1px solid var(--line)}
+.crumb{font-size:14px;color:var(--quiet);margin:0 0 18px}
+.crumb a{color:var(--quiet);text-decoration:none}
+.crumb a:hover{color:var(--blue)}
+.eyebrow{font-family:"Space Grotesk",sans-serif;font-size:13px;letter-spacing:.14em;color:var(--teal);font-weight:700;margin:0 0 12px;text-transform:uppercase}
+.hero h1{font-size:clamp(28px,4.2vw,44px);margin:0 0 16px}
+.hero .sub{font-size:19px;color:var(--muted);margin:0 0 18px;font-weight:500}
+.meta{font-size:14px;color:var(--quiet);margin:0}
+/* 目錄：固定在頁首下方，往下捲動仍可見 */
+.tocbar{position:sticky;top:68px;z-index:25;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 6px rgba(14,42,68,.05)}
+.toc{display:flex;margin:0;padding:0;list-style:none}
+.toc li{flex:1 1 0;margin:0;border-left:1px solid var(--line)}
+.toc li:first-child{border-left:0}
+.toc a{display:block;padding:11px 6px 9px;text-align:center;white-space:nowrap;color:var(--navy);text-decoration:none;font-size:15px;font-weight:500;border-bottom:3px solid transparent}
+.toc a b{font-family:"Space Grotesk",sans-serif;color:var(--orange);font-size:13px;margin-right:6px}
+.toc a:hover{color:var(--teal);border-bottom-color:var(--teal)}
+.toc a.on{color:var(--teal);border-bottom-color:var(--orange)}
+@media(max-width:640px){
+  .tocbar .wrap{padding:0}
+  .toc{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .toc::-webkit-scrollbar{display:none}
+  .toc li{flex:0 0 auto}
+  .toc a{padding:11px 14px 9px;font-size:14px}
+}
+
+/* article */
+main{padding:40px 0 24px}
+.intro p{margin:0 0 16px}
+section.part{padding:40px 0 8px;border-top:1px solid var(--line);margin-top:40px}
+section.part:first-of-type{border-top:none;margin-top:0}
+section.part > h2{font-size:clamp(24px,3vw,32px);margin:0 0 20px;display:flex;gap:12px;align-items:baseline}
+section.part > h2 .no{font-family:"Space Grotesk",sans-serif;color:var(--orange);font-size:.9em}
+h3{font-size:20px;margin:30px 0 12px}
+p{margin:0 0 16px}
+ul,ol{padding-left:24px;margin:0 0 18px}
+li{margin-bottom:8px}
+.lead{font-size:18px;color:var(--muted)}
+
+/* key points */
+.keybox{background:var(--teal-l);border:1px solid #CBE7E7;border-left:5px solid var(--teal);border-radius:10px;padding:22px 26px;margin:28px 0}
+.keybox h2{font-size:20px;margin:0 0 12px}
+.keybox ul{margin:0}
+.keybox li{margin-bottom:6px}
+
+/* figure */
+figure{margin:28px 0;border:1px solid var(--line);border-radius:14px;padding:24px 26px;background:#fff}
+figure .ftag{font-family:"Space Grotesk",sans-serif;font-size:12px;letter-spacing:.12em;color:var(--teal);font-weight:700;margin:0 0 4px}
+figure .ftitle{font-size:21px;font-weight:700;color:var(--navy);margin:0 0 6px}
+figure .ftitle::after{content:"";display:block;width:44px;height:3px;background:var(--orange);margin-top:8px}
+figcaption{font-size:15px;color:var(--muted);margin-top:16px}
+
+/* timeline */
+/* 時間軸：2025-01-01 為 0%，2028-01-01 為 100%，依實際日數換算 */
+.tl{position:relative;height:200px;margin:18px 10px 0}
+.tl .axis{position:absolute;left:0;right:0;top:110px;height:2px;background:var(--line)}
+.tl .tick{position:absolute;top:104px;width:2px;height:14px;background:#B9C7D2;transform:translateX(-50%)}
+.tl .yr{position:absolute;top:120px;transform:translateX(-50%);white-space:nowrap;font-size:12px;color:var(--quiet);font-family:"Space Grotesk",sans-serif}
+.tl .span{position:absolute;top:102px;height:18px;border-radius:9px;background:var(--teal);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;padding-left:20px;white-space:nowrap;overflow:hidden}
+.tl .cra{position:absolute;top:110px;height:2px;background:var(--orange)}
+.tl .cra::after{content:"";position:absolute;right:-2px;top:-5px;border-left:10px solid var(--orange);border-top:6px solid transparent;border-bottom:6px solid transparent}
+.tl .node{position:absolute;top:101px;width:20px;height:20px;transform:translateX(-50%);border-radius:50%;background:#fff;border:3px solid var(--teal)}
+.tl .node.hot{border-color:var(--orange)}
+.tl .lab{position:absolute;width:190px;transform:translateX(-50%);text-align:center;font-size:14px;line-height:1.5}
+.tl .lab b{display:block;font-family:"Space Grotesk","Noto Sans TC",sans-serif;font-size:17px;color:var(--teal)}
+.tl .lab.hot b{color:var(--orange)}
+.tl .lab.up{bottom:108px}
+.tl .lab.dn{top:144px}
+.tl .lab.left{transform:translateX(-12px);text-align:left}
+.tl .lab.right{transform:translateX(calc(-100% + 12px));text-align:right}
+@media(max-width:720px){
+  .tl{height:auto;margin:16px 0 0;padding-left:28px}
+  .tl .axis,.tl .span,.tl .cra,.tl .tick,.tl .yr{display:none}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--teal)}
+  .tl .node{display:none}
+  .tl .lab{position:relative;left:auto !important;width:auto;margin:0 0 18px !important;text-align:left !important;top:auto !important;bottom:auto !important;transform:none !important}
+  .tl .lab::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--teal)}
+  .tl .lab.hot::before{border-color:var(--orange)}
+}
+
+/* cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:18px 0 22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0 22px}
+@media(max-width:820px){.grid3,.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:12px;padding:22px;background:#fff}
+.card .code{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--blue);font-size:20px}
+.card .req{font-weight:700;color:var(--navy);margin:4px 0 8px}
+.card .req span{display:block;font-weight:500;color:var(--ink);font-size:15.5px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+.card h4{margin:0 0 8px;font-size:18px;color:var(--navy)}
+
+/* security vs safety */
+.ss{border-radius:12px;padding:20px 22px}
+.ss.sec{background:var(--teal-l);border:1px solid #BFE1E1}
+.ss.saf{background:var(--orange-l);border:1px solid #F6CDB9}
+.ss .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.ss .k{font-family:"Space Grotesk","Noto Sans TC",sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em}
+.ss.sec .k{color:var(--teal)} .ss.saf .k{color:var(--orange-d)}
+.ss .std{font-weight:700;color:var(--navy);font-size:15px}
+.panel{display:flex;align-items:center;gap:14px;background:#13222F;border-radius:10px;padding:14px 18px;color:#fff;margin-bottom:14px}
+.panel .lbl{font-size:12px;color:#C9D6E0}
+.panel .tmp{font-family:"Space Grotesk",sans-serif;font-size:40px;font-weight:700;line-height:1}
+.panel .old{font-family:"Space Grotesk",sans-serif;color:#8FA3B3;text-decoration:line-through;font-size:18px}
+.panel .hot{color:#FF7A45}
+.panel .lock{margin-left:auto;font-size:13px;border:2px solid var(--teal-2);border-radius:8px;padding:4px 10px;color:#BFF0F0}
+.ss .q{font-weight:700;color:var(--navy);margin:0 0 4px}
+.ss p{margin:0;font-size:15px;color:var(--muted)}
+
+/* routes */
+.route{border-radius:12px;padding:22px 24px}
+.route.self{background:var(--teal-l);border:1px solid #BFE1E1}
+.route.nbr{background:var(--orange-l);border:1px solid #F6CDB9}
+.route h4{margin:0 0 6px;font-size:19px}
+.route.self h4{color:var(--teal)} .route.nbr h4{color:var(--orange-d)}
+.route .when{font-weight:700;color:var(--navy);margin:0 0 8px;font-size:15.5px}
+.route p{margin:0;font-size:15.5px;color:var(--muted)}
+
+/* steps */
+/* 每張卡分三列（提供／步驟／實驗室），用 subgrid 讓同一排的色塊等高 */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:row dense;column-gap:22px;row-gap:18px;margin-top:14px}
+.fignote{margin:0 0 6px;font-size:15px;color:var(--muted)}
+.ph-more{grid-column:1/-1;margin-top:10px;appearance:none;-webkit-appearance:none;font:inherit;font-size:14px;font-weight:700;color:var(--teal);background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer}
+.ph-more::after{content:"＋";margin-left:6px}
+.ph-more[aria-expanded="true"]{background:var(--teal-l);border-color:var(--teal)}
+.ph-more[aria-expanded="true"]::after{content:"－"}
+.ph-more:hover{border-color:var(--teal)}
+.ph-more:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.stage-panel{grid-column:1/-1;border:1px solid #BFE1E1;border-left:4px solid var(--teal);border-radius:10px;background:#fff;padding:16px 20px 6px}
+.stage-panel.loop{border-color:#F6CDB9;border-left-color:var(--orange)}
+.stage-panel h4{margin:0 0 8px;font-size:17px;color:var(--navy)}
+.stage-panel h4 span{color:var(--quiet);font-weight:500;font-size:13px;margin-left:8px}
+.stage-panel p,.stage-panel li{font-size:15.5px;color:var(--muted)}
+.stage-panel p{margin:0 0 10px}
+.stage-panel ul{margin:0 0 10px}
+.phase{grid-column:span 2;grid-row:span 5;display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;column-gap:10px;row-gap:0;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg-2)}
+.phase .ph{grid-column:1/-1;font-weight:700;color:var(--navy);font-size:15px;padding:0 2px 10px}
+.phase .ph span{color:var(--quiet);font-weight:500;font-size:13px;margin-left:8px}
+.phase.loop .ph{color:var(--orange-d)}
+.step{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
+@supports not (grid-template-rows:subgrid){.phase{grid-template-columns:1fr 1fr}.step{grid-template-rows:84px 1fr 84px}}
+.step .give{background:var(--orange-l);padding:10px 9px;font-size:13px;color:var(--muted)}
+.step .mid{padding:12px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.step .num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;align-items:center;justify-content:center;font-size:14px}
+.step.loop .num{background:var(--orange)}
+.step .nm{display:block;font-weight:700;color:var(--navy);font-size:14.5px;line-height:1.45;margin-top:8px}
+.step .lab{background:var(--teal-l);padding:10px 9px;font-size:13px;color:var(--ink)}
+.step small{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:2px}
+.step .give small{color:var(--orange-d)} .step .lab small{color:var(--teal)}
+.loopnote{margin-top:10px;font-size:14px;color:var(--orange-d);font-weight:700}
+@media(max-width:980px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.steps{grid-template-columns:1fr}.phase{grid-column:span 1;grid-row:span 8}.phase .step+.step{margin-top:10px}}
+
+/* stages：可收合 */
+details.stage{border-left:4px solid var(--teal)}
+details.stage summary{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stage .sn{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Space Grotesk",sans-serif;font-size:14px;align-items:center;justify-content:center;flex:0 0 auto}
+.stage .rg{color:var(--quiet);font-weight:500;font-size:14px}
+details.stage .a p{margin:0 0 12px}
+details.stage .a ul{margin:0 0 12px}
+
+/* scope questions */
+.qs{list-style:none;padding:0;margin:0 0 16px;counter-reset:q}
+.qs li{counter-increment:q;position:relative;padding:14px 18px 14px 58px;border:1px solid var(--line);border-radius:10px;margin:0 0 10px;background:#fff}
+.qs li::before{content:counter(q);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--teal);color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.qs .q{display:block;font-weight:700;color:var(--navy);margin-bottom:2px}
+.qs .r{display:block;font-size:15.5px;color:var(--muted)}
+.qs .r b{color:var(--teal)}
+
+/* architecture：點選切換 */
+.arch-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.arch-tab{appearance:none;-webkit-appearance:none;font:inherit;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 16px 14px;color:var(--ink);box-shadow:inset 0 0 0 1px transparent}
+.arch-tab:hover{border-color:var(--teal)}
+.arch-tab[aria-selected="true"]{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal);background:var(--teal-l)}
+.arch-tab:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.arch-tab .ic{display:block;font-family:"Space Grotesk",sans-serif;font-size:12px;color:var(--teal);font-weight:700;letter-spacing:.06em}
+.arch-tab .nm{display:block;font-size:18px;font-weight:700;color:var(--navy);margin:4px 0 10px;line-height:1.4}
+.meter .bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.meter .bar i{display:block;height:100%}
+.meter .t{display:block;font-size:13.5px;font-weight:700;margin-top:6px}
+.arch-panel{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:var(--bg-2)}
+.arch-panel h4{margin:0 0 14px;font-size:18px;color:var(--navy)}
+.chain{display:flex;align-items:center;margin:0 0 18px}
+.chain .nd{flex:0 0 auto;padding:7px 14px;border-radius:8px;border:2px solid var(--teal);background:#fff;font-weight:700;color:var(--navy);font-size:14px}
+.chain .ln{flex:1 1 auto;min-width:20px;height:3px;background:var(--teal)}
+.chain .off{border-style:dashed;border-color:#C3CFD8;color:#9AAAB8;background:transparent}
+.chain .ln.off{background:repeating-linear-gradient(90deg,#C3CFD8 0 6px,transparent 6px 11px)}
+.arch-panel dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:10px 16px}
+.arch-panel dt{font-weight:700;color:var(--navy);font-size:15px}
+.arch-panel dd{margin:0;color:var(--muted);font-size:15.5px}
+@media(max-width:720px){
+  .arch-tab{padding:12px 10px}
+  .arch-tab .ic{display:none}
+  .arch-tab .nm{font-size:15px;margin-top:0}
+  .meter .t{font-size:13px}
+  .meter .pre{display:none}
+  .arch-panel{padding:18px 16px}
+  .arch-panel dl{grid-template-columns:1fr;gap:2px}
+  .arch-panel dd{margin-bottom:10px}
+  .chain .nd{padding:6px 9px;font-size:13px}
+}
+
+/* misc */
+.callout{background:var(--bg-2);border-left:4px solid var(--orange);border-radius:6px;padding:14px 18px;margin:18px 0;font-size:16px}
+table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:15.5px}
+th,td{border-bottom:1px solid var(--line);padding:12px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg-2);color:var(--navy);font-weight:700}
+.cost li b,.choose li b{color:var(--navy)}
+@media(max-width:640px){table{font-size:14px}th,td{padding:10px 6px}}
+ul.cost{list-style:none;padding-left:0}
+.next{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;list-style:none;padding:0}
+.next a{display:block;border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--navy);font-weight:500;background:#fff}
+.next a:hover{border-color:var(--teal);color:var(--teal)}
+.next a.go{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
+.next a.go:hover{background:var(--orange-d)}
+@media(max-width:640px){.next{grid-template-columns:1fr}}
+details{border:1px solid var(--line);border-radius:10px;margin:0 0 12px;background:#fff}
+summary{cursor:pointer;padding:16px 20px;font-weight:700;color:var(--navy);list-style:none;position:relative;padding-right:48px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:20px;top:12px;font-size:22px;color:var(--teal)}
+details[open] summary::after{content:"−"}
+details .a{padding:0 20px 16px;color:var(--muted)}
+details .a p{margin:0}
+dl.gloss{margin:0}
+dl.gloss div{display:grid;grid-template-columns:220px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+dl.gloss dt{font-weight:700;color:var(--navy)}
+dl.gloss dd{margin:0;color:var(--muted)}
+@media(max-width:640px){dl.gloss div{grid-template-columns:1fr;gap:2px}}
+.src{font-size:15px;color:var(--muted)}
+.byline{margin-top:26px;font-weight:700;color:var(--navy)}
+.disc{font-size:14px;color:var(--quiet);margin-top:10px}
+
+/* contact band */
+.band{background:var(--navy);color:#fff;margin-top:56px;padding:52px 0}
+.band .in{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap}
+.band h2{color:#fff;font-size:clamp(22px,2.8vw,30px);margin:0 0 8px}
+.band p{color:#C9D6E0;margin:0;max-width:640px}
+.band .btn{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:6px}
+.band .btn:hover{background:var(--orange-d)}
+.cred{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:20px 0 0}
+.cred li{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 14px;font-size:13px;color:#DCE6EE;margin:0}
+footer{background:#0A1E31;color:#9FB2C2;font-size:13px;padding:22px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="https://securevectorlab.com/zh-hant"><img src="data:image/png;base64,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" alt="SVS Lab"><span class="wm">SECURE<br>VECTORS<br>SURVEILLANCE</span></a>
+    <nav>
+      <a href="https://securevectorlab.com/zh-hant">測試服務</a><a href="https://securevectorlab.com/zh-hant/eu-cra">EU CRA</a><a href="https://securevectorlab.com/zh-hant/medical-device-testing">FDA &amp; MDR</a><a href="#">支付與金融</a><a href="#">新聞</a><a href="#">關於我們</a><span class="lang" aria-label="語言"><a class="on" href="en-18031-for-dummies.html" lang="zh-Hant" hreflang="zh-Hant" aria-current="page">繁</a><a href="en-18031-for-dummies-zh-hans.html" lang="zh-Hans" hreflang="zh-Hans">简</a></span><a class="cta" href="https://securevectorlab.com/zh-hant/en-18031#contact">聯絡我們</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap narrow">
+    <p class="crumb"><a href="https://securevectorlab.com/zh-hant">首頁</a> ／ <a href="https://securevectorlab.com/zh-hant/en-18031">EN 18031 檢測</a> ／ 入門指南</p>
+    <p class="eyebrow">知識專欄 · EN 18031 系列</p>
+    <h1>【EN&nbsp;18031 入門指南】<br>無線產品賣歐盟，資安要求一次看懂</h1>
+    <p class="sub">用 3W3H 看懂歐盟無線產品的資安標準，第一次面對也能抓到方向。</p>
+    <p class="meta">2026 年 11 月 16 日 · 文／安合規律 × Applus+ Laboratories</p>
+  </div>
+</section>
+
+<div class="tocbar" role="navigation" aria-label="本文目錄">
+  <div class="wrap narrow">
+    <ul class="toc">
+      <li><a href="#what"><b>01</b>是什麼</a></li>
+      <li><a href="#who"><b>02</b>誰要做</a></li>
+      <li><a href="#help"><b>03</b>誰協助</a></li>
+      <li><a href="#how"><b>04</b>怎麼做</a></li>
+      <li><a href="#time"><b>05</b>要多久</a></li>
+      <li><a href="#cost"><b>06</b>費用</a></li>
+    </ul>
+  </div>
+</div>
+
+<main>
+<div class="wrap narrow">
+
+  <div class="intro">
+    <p class="lead">藍牙耳機、智慧插座、支付終端、兒童手錶等無線產品，自 2025 年 8 月 1 日起投放歐盟市場，須符合歐盟無線電設備指令（RED）新增的網路安全要求。EN&nbsp;18031 是歐盟認可、用來證明符合上述要求的調和標準。</p>
+    <p>本文依六個問題整理 EN&nbsp;18031 的重點：標準內容、適用對象、參與角色、執行流程、所需時程與費用估算。如需進一步判斷適用標準、查閱 8 步檢測流程與送測準備清單，請參閱 <a href="https://securevectorlab.com/zh-hant/en-18031">EN&nbsp;18031 檢測頁</a>。</p>
+  </div>
+
+  <div class="keybox">
+    <h2>重點整理</h2>
+    <ul>
+      <li>自 2025 年 8 月 1 日起，投放歐盟市場的無線產品依功能適用 RED 網路安全要求；EN&nbsp;18031 分為 -1 網路防護、-2 個資保護、-3 金融資產保護，可能同時適用多份。</li>
+      <li>完整套用標準、且未涉及限制條件的產品可自我宣告；涉及限制條件者（例如允許不設密碼、兒童產品未確保家長存取控制、適用 -3 的安全更新），須由公告機構參與評估。</li>
+      <li>實驗室執行檢測並出具報告，證書由公告機構核發；時程與費用主要依產品架構而定。</li>
+      <li>部分檢測證據，預期可作為準備 CRA 的基礎；CRA 自 2027 年 12 月 11 日起全面適用。</li>
+    </ul>
+  </div>
+
+  <figure>
+    <p class="ftag">SVS LAB · EN 18031 系列</p>
+    <p class="ftitle">關鍵時程</p>
+    <div class="tl" role="img" aria-label="EN 18031 與 CRA 關鍵時程：2025 年 1 月 EN 18031 刊登歐盟官方公報；2025 年 8 月 1 日 RED 網路安全要求開始適用；2026 年 9 月 11 日 CRA 通報義務開始適用；2027 年 12 月 11 日 CRA 全面適用">
+      <div class="axis"></div>
+      <span class="tick" style="left:0%"></span><span class="tick" style="left:33.33%"></span><span class="tick" style="left:66.67%"></span><span class="tick" style="left:100%"></span>
+      <span class="yr" style="left:0%">2025</span><span class="yr" style="left:33.33%">2026</span><span class="yr" style="left:66.67%">2027</span><span class="yr" style="left:100%">2028</span>
+      <div class="span" style="left:19.36%;width:78.72%">RED 網路安全要求適用</div>
+      <div class="cra" style="left:98.08%;right:-8px"></div>
+      <div class="node" style="left:2.65%"></div>
+      <div class="node" style="left:19.36%"></div>
+      <div class="node" style="left:56.44%"></div>
+      <div class="node hot" style="left:98.08%"></div>
+      <div class="lab up left" style="left:2.65%"><b>2025 年 1 月</b>EN&nbsp;18031 刊登歐盟官方公報</div>
+      <div class="lab dn" style="left:19.36%"><b>2025 年 8 月 1 日</b>RED 網路安全要求開始適用</div>
+      <div class="lab up" style="left:56.44%"><b>2026 年 9 月 11 日</b>CRA 通報義務開始適用</div>
+      <div class="lab dn hot right" style="left:98.08%"><b>2027 年 12 月 11 日</b>CRA 全面適用，接手 RED</div>
+    </div>
+    <figcaption>2027 年 12 月 11 日前，EN&nbsp;18031 為證明符合 RED 網路安全要求的主要依據；CRA 通報義務已於 2026 年 9 月 11 日先行適用。</figcaption>
+  </figure>
+
+  <section class="part" id="what">
+    <h2><span class="no">01</span>什麼是 EN&nbsp;18031？</h2>
+    <p>EN&nbsp;18031 是歐盟認可的調和標準，用來證明無線產品符合 RED 的三項網路安全要求。</p>
+    <p>自 2025 年 8 月 1 日起，RED 依授權法規 Delegated Regulation (EU) 2022/30 啟用了第 3(3) 條 (d)(e)(f) 三項要求。三項要求分別為：不危害所連接的網路、保護個人資料與隱私、防範金融詐欺。</p>
+    <p>EN&nbsp;18031 是一份<b>調和標準</b>：經歐盟正式認可、用來證明符合法規的技術標準。RED 的網路安全要求是強制性的；EN&nbsp;18031 則是證明符合這些要求的方式之一。產品符合這份標準時，主管機關就推定它符合法規，稱為「符合性推定」；未採用或只採用部分標準時，須改由公告機構參與評估（見第 03 段）。</p>
+
+    <h3>三份標準與適用範圍</h3>
+    <div class="grid3">
+      <div class="card"><div class="code">EN 18031-1</div><div class="req">網路防護<span>不危害所連接的網路</span></div><p>可透過網際網路通訊的無線產品（直接連網或經由其他裝置）</p></div>
+      <div class="card"><div class="code">EN 18031-2</div><div class="req">個資保護<span>保護個人資料與隱私</span></div><p>可處理個人資料的連網產品、兒童玩具、兒童照護設備與穿戴裝置（後三類即使未連網也適用）</p></div>
+      <div class="card"><div class="code">EN 18031-3</div><div class="req">金融資產保護<span>防範金融詐欺</span></div><p>可讓使用者轉移金錢、貨幣價值或虛擬貨幣的連網產品</p></div>
+    </div>
+    <p>三項要求累加適用：處理個人資料的連網產品，適用 -1 與 -2；涉及金融交易者，另適用 -3。</p>
+
+    <h3>EN&nbsp;18031 的評估範圍</h3>
+    <p>EN&nbsp;18031 評估產品能否防範未經授權的存取與竄改，不評估遭竄改後對使用者造成的實體危害。</p>
+    <figure>
+      <p class="ftag">SVS LAB · EN 18031 系列</p>
+      <p class="ftitle">資安（Security）與人身安全（Safety）是兩個問題</p>
+      <div class="grid2" style="margin-bottom:0">
+        <div class="ss sec">
+          <div class="hd"><span class="k">資安 SECURITY</span><span class="std">EN 18031</span></div>
+          <div class="panel"><div><div class="lbl">設定溫度</div><div class="tmp">22<small style="font-size:14px"> °C</small></div></div><span class="lock">已上鎖 · 無法竄改</span></div>
+          <p class="q">有人能未經授權改掉設定嗎？</p>
+          <p>實驗室檢測防護機制，確認設定無法被竄改。</p>
+        </div>
+        <div class="ss saf">
+          <div class="hd"><span class="k">人身安全 SAFETY</span><span class="std">產品安全標準</span></div>
+          <div class="panel"><div><div class="lbl">設定溫度</div><div><span class="old">22</span> <span class="tmp hot">40</span><small style="font-size:14px"> °C</small></div></div></div>
+          <p class="q">設定被改了，使用者會怎樣？</p>
+          <p>由產品安全標準評估危害，以及如何控制。</p>
+        </div>
+      </div>
+    </figure>
+    <p>以連網電暖器為例：若攻擊者可將設定溫度由 22 度改為 40 度，資安弱點即可能衍生實體風險。EN&nbsp;18031 評估此類竄改能否被有效阻擋；竄改後可能造成的危害屬產品安全範疇，依各產品類別的安全法規處理。連網產品兩者皆須符合。</p>
+  </section>
+
+  <section class="part" id="who">
+    <h2><span class="no">02</span>誰需要做？</h2>
+    <p>2025 年 8 月 1 日起銷售於歐盟市場的無線產品，是否須符合 RED 網路安全要求，需依產品功能判定。</p>
+    <h3>先判斷您的產品是否在範圍內</h3>
+    <ol class="qs">
+      <li><span class="q">產品是否具備無線功能（藍牙、Wi-Fi、行動網路、NFC 等），並銷往歐盟？</span><span class="r">否：不在 RED 網路安全要求的範圍內。是：繼續判斷第 2–4 題。</span></li>
+      <li><span class="q">是否可直接或經由其他裝置連接網際網路？</span><span class="r">是：適用 <b>EN&nbsp;18031-1</b>。例如經藍牙連接手機 App，再由 App 連網，也屬於這一類。</span></li>
+      <li><span class="q">是否能處理個人資料（包括流量與位置資料）？</span><span class="r">連網產品：適用 <b>EN&nbsp;18031-2</b>。兒童照護設備、兒童玩具與穿戴裝置即使不連網，只要能處理個人資料，也適用。</span></li>
+      <li><span class="q">是否可讓使用者轉移金錢、貨幣價值或虛擬貨幣？</span><span class="r">連網產品：適用 <b>EN&nbsp;18031-3</b>。</span></li>
+    </ol>
+    <p>三項要求累加適用，同一產品可能同時適用多份。判斷 EN&nbsp;18031 適用範圍，另有互動版的 <a href="https://securevectorlab.com/zh-hant/en-18031#check">4 個問題快速判斷工具</a>。</p>
+    <h3>誰負有義務</h3>
+    <p>RED 對製造商、進口商與經銷商分別訂有義務：</p>
+    <div class="grid3">
+      <div class="card"><h4>製造商（第 10 條）</h4><p>將產品投放市場時，須確保產品的設計與製造符合基本要求；執行符合性評估、備妥技術文件、簽署歐盟符合性聲明（EU DoC），並加貼 CE 標誌。</p></div>
+      <div class="card"><h4>進口商（第 12 條）</h4><p>只能將符合規定的產品投放市場。投放前須確認製造商已執行符合性評估、已備妥技術文件，且產品已加貼 CE 標誌並附上必要文件。</p></div>
+      <div class="card"><h4>經銷商（第 13 條）</h4><p>在市場上提供產品時，須對 RED 的要求善盡注意義務；提供前須確認產品已加貼 CE 標誌並附上必要文件。</p></div>
+    </div>
+    <p>進口商或經銷商以自有名稱或商標將產品投放市場，或修改產品而可能影響合規時，須承擔製造商的義務。台灣廠商為歐盟品牌代工（OEM／ODM）時，法律上的製造商通常是品牌商，但品牌商多半會要求代工廠提供檢測報告與技術文件。歐盟境外的製造商，可指定歐盟授權代表，代為保管技術文件並回應主管機關的調閱。</p>
+    <h3>兩個常見誤解</h3>
+    <ul>
+      <li><b>「我們的機型早就上市了」</b>：RED 網路安全要求以每一台產品投放歐盟市場的日期判斷，而不是機型首次上市的日期。既有機型在 2025 年 8 月 1 日以後投放市場的產品，同樣須符合。</li>
+      <li><b>「醫療器材也要做」</b>：以下產品排除在 RED 網路安全要求之外：
+        <ul>
+          <li>受 MDR／IVDR 規範的醫療器材：三項要求全部排除；</li>
+          <li>民用航空、車輛型式認證與電子道路收費的相關設備：排除個資保護與金融資產保護兩項，網路防護要求仍然適用。</li>
+        </ul>
+        排除不代表不需處理資安，而是改由各自的法規規範。醫療器材的資安依醫療器材法規要求；EN&nbsp;18031 的檢測報告與 SBOM 仍可作為佐證資料。詳見 <a href="https://securevectorlab.com/zh-hant/medical-device-testing">醫療器材資安檢測</a>。</li>
+    </ul>
+  </section>
+
+  <section class="part" id="help">
+    <h2><span class="no">03</span>誰可以協助？</h2>
+    <p>產品合規責任由製造商承擔；外部可協助為檢測實驗室與公告機構，兩者功能不同，無法互相取代。</p>
+    <div class="grid2">
+      <div class="route self">
+        <h4>檢測實驗室</h4>
+        <p class="when">執行檢測、出具檢測報告</p>
+        <p>依 EN&nbsp;18031 檢測產品並出具報告；不核發證書。通過 ISO/IEC 17025 認可，代表其檢測能力經過第三方評鑑。</p>
+      </div>
+      <div class="route nbr">
+        <h4>公告機構（Notified Body，NB）</h4>
+        <p class="when">執行符合性評估、核發證書</p>
+        <p>由歐盟會員國指定的獨立機構，每家都有四位數編號與限定的授權範圍，可在歐盟 NANDO 資料庫查詢，例如 Applus+ Laboratories（NB 0370，RED 公告機構）。</p>
+      </div>
+    </div>
+
+    <h3>不一定需要公告機構</h3>
+    <p>依 RED 第 17 條，製造商採用已刊登歐盟官方公報的調和標準時，可以自我宣告（內部生產控制），也可以選擇由公告機構參與；未採用或只採用部分調和標準時，則須採用有公告機構參與的程序。</p>
+    <p>EN&nbsp;18031 依 Implementing Decision (EU) 2025/138 刊登官方公報時，附帶了限制條件。產品涉及其中任一項時，該份標準對其所對應的法規要求不具符合性推定，須由公告機構參與評估。實務上常見的有以下三項：</p>
+    <ul>
+      <li>產品允許使用者不設定或不使用密碼（EN&nbsp;18031-1、-2、-3 皆有此限制）；</li>
+      <li>兒童玩具或兒童照護設備未確保家長或監護人的存取控制（EN&nbsp;18031-2）；</li>
+      <li>產品適用 EN&nbsp;18031-3：其安全更新機制的評估準則不具符合性推定，因此實務上多需公告機構參與。</li>
+    </ul>
+    <table>
+      <thead><tr><th style="width:24%"></th><th>可以自我宣告</th><th>需要公告機構</th></tr></thead>
+      <tbody>
+        <tr><th>適用情況</th><td>完整採用適用的 EN&nbsp;18031，且未涉及限制條件</td><td>涉及限制條件，或未完整採用標準</td></tr>
+        <tr><th>檢測</th><td>法規未強制委託實驗室；委託 ISO/IEC 17025 實驗室，可取得第三方檢測報告並納入技術文件</td><td>實驗室報告可作為公告機構審查參考</td></tr>
+        <tr><th>證書與聲明</th><td>不需證書；製造商備妥技術文件、簽署 EU DoC，加貼 CE 標誌</td><td>公告機構評估並核發證書；EU DoC 仍由製造商簽署</td></tr>
+      </tbody>
+    </table>
+
+    <h3>如何選擇實驗室與公告機構？</h3>
+    <p>建議依下列順序確認：</p>
+    <ol class="choose">
+      <li><b>先確認是否需要公告機構</b>：依上方的判斷，產品可能涉及限制條件時，選擇時就要把公告機構一併納入考量。</li>
+      <li><b>公告機構：查授權範圍</b>：在 NANDO 確認其 RED 授權涵蓋第 3(3) 條 (d)(e)(f)，而不只是射頻或安規。</li>
+      <li><b>實驗室：查認可範圍</b>：確認實驗室通過 ISO/IEC 17025，且認可範圍包含資安檢測。</li>
+      <li><b>確認兩者如何銜接</b>：確認實驗室的檢測報告能否作為公告機構審查的參考，可減少重複作業。</li>
+      <li><b>考量時程與後續法規</b>：檢測通常包含修補與複測，在地、同語言的溝通有助於縮短時程；也可確認檢測證據能否用於準備 2027 年後的 CRA。</li>
+    </ol>
+  </section>
+
+  <section class="part" id="how">
+    <h2><span class="no">04</span>該怎麼做？</h2>
+    <p>檢測流程分為四個階段，對應 <a href="https://securevectorlab.com/zh-hant/en-18031#process">EN&nbsp;18031 檢測頁的 8 步檢測流程</a>。</p>
+    <figure>
+      <p class="ftag">SVS LAB · EN 18031 系列</p>
+      <p class="ftitle">EN&nbsp;18031 檢測：八個步驟</p>
+      <p class="fignote">點選各階段的「展開說明」，查看該階段的工作重點。</p>
+      <div class="steps">
+        <div class="phase"><div class="ph">準備階段<span>第 1–2 步</span></div>
+          <div class="step"><div class="give"><small>您需要提供</small>裝置、App、伺服器存取資訊與技術文件</div><div class="mid"><span class="num">1</span><span class="nm">樣品與架構交付</span></div><div class="lab"><small>實驗室執行</small>確認產品架構</div></div>
+          <div class="step"><div class="give"><small>您需要提供</small>技術文件</div><div class="mid"><span class="num">2</span><span class="nm">標準差距分析</span></div><div class="lab"><small>實驗室執行</small>逐項比對標準</div></div>
+          <button class="ph-more" type="button" id="stbtn-1" aria-expanded="true" aria-controls="stage-1">展開說明</button>
+        </div>
+        <div class="stage-panel" id="stage-1" role="region" aria-labelledby="stbtn-1">
+          <h4>準備階段<span>第 1–2 步</span></h4>
+          <p>確認適用哪幾份標準、走自我宣告還是公告機構，並盤點產品要保護的資產：密碼與金鑰等安全資產、網路功能、個人資料、金融資料。接著由實驗室進行差距分析，將技術文件與標準逐項比對，優先識別影響最大的差距。</p>
+        </div>
+        <div class="phase"><div class="ph">準備資料階段<span>第 3–4 步</span></div>
+          <div class="step"><div class="give"><small>您需要提供</small>不適用理由、開發紀錄</div><div class="mid"><span class="num">3</span><span class="nm">適用性判定與安全設計審查</span></div><div class="lab"><small>實驗室執行</small>決策樹判定、設計審查</div></div>
+          <div class="step"><div class="give"><small>您需要提供</small>韌體與 App 版本</div><div class="mid"><span class="num">4</span><span class="nm">SBOM 建立<br>與元件掃描</span></div><div class="lab"><small>實驗室執行</small>掃描已知漏洞</div></div>
+          <button class="ph-more" type="button" id="stbtn-2" aria-expanded="true" aria-controls="stage-2">展開說明</button>
+        </div>
+        <div class="stage-panel" id="stage-2" role="region" aria-labelledby="stbtn-2">
+          <h4>準備資料階段<span>第 3–4 步</span></h4>
+          <p>EN&nbsp;18031 的每一項要求，均依標準提供的決策樹判定，結果分為不適用、通過、不通過三種。判定為「不適用」時，製造商須提出理由，並經實驗室審查確認。</p>
+          <p>此階段須備齊的資料包括：每項要求的決策樹路徑與理由、安全開發流程（SDLC）紀錄、SBOM（軟體物料清單），以及測試樣品。完整清單可參考 <a href="https://securevectorlab.com/zh-hant/en-18031">EN&nbsp;18031 檢測頁</a>的送測準備清單。</p>
+        </div>
+        <div class="phase loop"><div class="ph">檢測階段<span>第 5–6 步</span></div>
+          <div class="step loop"><div class="give"><small>您需要提供</small>測試樣品與帳號</div><div class="mid"><span class="num">5</span><span class="nm">安全測試<br>（完整性與充分性）</span></div><div class="lab"><small>實驗室執行</small>實測驗證與滲透測試</div></div>
+          <div class="step loop"><div class="give"><small>您需要提供</small>修補發現的問題</div><div class="mid"><span class="num">6</span><span class="nm">修補與複測</span></div><div class="lab"><small>實驗室執行</small>複測修補結果</div></div>
+          <button class="ph-more" type="button" id="stbtn-3" aria-expanded="true" aria-controls="stage-3">展開說明</button>
+        </div>
+        <div class="stage-panel loop" id="stage-3" role="region" aria-labelledby="stbtn-3">
+          <h4>檢測階段<span>第 5–6 步</span></h4>
+          <p>實驗室對每項要求執行三層評鑑：</p>
+          <ul>
+            <li><b>文件審查</b>（概念評鑑）：決策樹的路徑與理由是否成立。</li>
+            <li><b>實機核對</b>（功能完整性評鑑）：產品實際具備的防護機制是否與文件一致，沒有遺漏。</li>
+            <li><b>攻擊測試</b>（功能充分性評鑑）：透過程式碼掃描、滲透測試等，驗證防護機制的有效性。</li>
+          </ul>
+          <p>發現問題後由製造商修補，再由實驗室複測。產品上市時不應含有可被利用的已知漏洞：元件含已知漏洞者，須修補，或經評估確認無法被利用。此階段可能需進行多輪修補與複測。各項防護機制的檢測方式，請參閱 <a href="https://securevectorlab.com/zh-hant/news/en-18031-testing-process">《EN&nbsp;18031 檢測項目詳解：14 項資安機制與實驗室實際檢測範圍》</a>。</p>
+        </div>
+        <div class="phase"><div class="ph">報告階段<span>第 7–8 步</span></div>
+          <div class="step"><div class="give"><small>您需要提供</small>確認檢測結果</div><div class="mid"><span class="num">7</span><span class="nm">報告出具<br>必要時交由公告機構評估</span></div><div class="lab"><small>實驗室執行</small>出具 ISO/IEC 17025 檢測報告</div></div>
+          <div class="step"><div class="give"><small>您需要提供</small>保存文件供歐盟調閱</div><div class="mid"><span class="num">8</span><span class="nm">上市合規與文件保存</span></div><div class="lab"><small>實驗室執行</small>提供完整檢測文件</div></div>
+          <button class="ph-more" type="button" id="stbtn-4" aria-expanded="true" aria-controls="stage-4">展開說明</button>
+        </div>
+        <div class="stage-panel" id="stage-4" role="region" aria-labelledby="stbtn-4">
+          <h4>報告階段<span>第 7–8 步</span></h4>
+          <p>實驗室出具 ISO/IEC 17025 檢測報告。自我宣告的產品，報告納入技術文件，由製造商簽署 EU DoC；涉及限制條件的產品，再由公告機構審查並核發證書。</p>
+          <p>產品投放市場後，技術文件與 EU DoC 須保存 10 年。歐盟主管機關可要求製造商、進口商或歐盟授權代表限期提供；無法提出時，可能面臨罰款或產品下架。</p>
+        </div>
+      </div>
+      <p class="loopnote">第 5、6 步：修補後回到安全測試複測，直到通過。</p>
+  </section>
+
+  <section class="part" id="time">
+    <h2><span class="no">05</span>需要多久？</h2>
+    <p>檢測時程無統一天數，主要取決於產品架構與準備程度。主要影響因素如下：</p>
+    <ol>
+      <li><b>產品架構</b>：僅裝置本體者範圍最小；搭配 App 及伺服器時，檢測項目隨之增加。</li>
+      <li><b>啟用中的無線介面數量</b>：出貨時啟用的每一個介面均須評估。</li>
+      <li><b>開發紀錄是否齊全</b>：軟體委外開發且無法取得開發紀錄時，資料準備階段將延長。</li>
+      <li><b>需要幾輪修補</b>：每一項待修正的發現，均需一輪複測。</li>
+    </ol>
+    <figure>
+      <p class="ftag">SVS LAB · EN 18031 系列</p>
+      <p class="ftitle">常見的三種產品架構</p>
+      <p style="margin:0;font-size:15px;color:var(--muted)">點選架構，查看評估的連線與內容。</p>
+      <div class="arch-tabs" role="tablist" aria-label="產品架構">
+        <button class="arch-tab" type="button" role="tab" id="tab-a1" aria-controls="arch-a1" aria-selected="true"><span class="ic">DEVICE</span><span class="nm">獨立裝置</span><span class="meter"><span class="bar" style="display:block"><i style="width:33%;background:var(--teal)"></i></span><span class="t" style="color:var(--teal)"><span class="pre">相對工作量：</span>最低</span></span></button>
+        <button class="arch-tab" type="button" role="tab" id="tab-a2" aria-controls="arch-a2" aria-selected="false"><span class="ic">DEVICE + APP</span><span class="nm">裝置 + App</span><span class="meter"><span class="bar" style="display:block"><i style="width:66%;background:#E89A2E"></i></span><span class="t" style="color:#B8701A"><span class="pre">相對工作量：</span>中</span></span></button>
+        <button class="arch-tab" type="button" role="tab" id="tab-a3" aria-controls="arch-a3" aria-selected="false"><span class="ic">DEVICE + APP + SERVER</span><span class="nm">裝置 + App + 伺服器</span><span class="meter"><span class="bar" style="display:block"><i style="width:100%;background:var(--orange)"></i></span><span class="t" style="color:var(--orange-d)"><span class="pre">相對工作量：</span>最高</span></span></button>
+      </div>
+      <div class="arch-panel" id="arch-a1" role="tabpanel" aria-labelledby="tab-a1">
+        <h4>獨立裝置</h4>
+        <div class="chain" aria-hidden="true"><span class="nd">裝置</span><span class="ln off"></span><span class="nd off">App</span><span class="ln off"></span><span class="nd off">伺服器</span></div>
+        <dl>
+          <dt>典型產品</dt><dd>直接連網，在裝置本身完成設定。</dd>
+          <dt>評估的連線</dt><dd>裝置本身的無線與網路介面。</dd>
+          <dt>評估內容</dt><dd>MCU、作業系統、韌體；對外介面、密碼、安全更新；SBOM 與元件漏洞。</dd>
+          <dt>對時程的影響</dt><dd>檢測範圍集中在裝置本身，相對工作量最低。</dd>
+        </dl>
+      </div>
+      <div class="arch-panel" id="arch-a2" role="tabpanel" aria-labelledby="tab-a2">
+        <h4>裝置 + App</h4>
+        <div class="chain" aria-hidden="true"><span class="nd">裝置</span><span class="ln"></span><span class="nd">App</span><span class="ln off"></span><span class="nd off">伺服器</span></div>
+        <dl>
+          <dt>典型產品</dt><dd>透過手機 App 設定或操控，例如藍牙耳機、智慧插座。</dd>
+          <dt>評估的連線</dt><dd>裝置本身，再加上裝置與 App 之間的連線。</dd>
+          <dt>評估內容</dt><dd>獨立裝置的所有項目，再加上配對控管（誰可以連線）、傳輸加密、防重放攻擊。</dd>
+          <dt>對時程的影響</dt><dd>App 無法單獨取證，透過裝置與 App 的連線一併評估；連線數增加，檢測項目隨之增加。</dd>
+        </dl>
+      </div>
+      <div class="arch-panel" id="arch-a3" role="tabpanel" aria-labelledby="tab-a3">
+        <h4>裝置 + App + 伺服器</h4>
+        <div class="chain" aria-hidden="true"><span class="nd">裝置</span><span class="ln"></span><span class="nd">App</span><span class="ln"></span><span class="nd">伺服器</span></div>
+        <dl>
+          <dt>典型產品</dt><dd>資料上傳雲端，或由雲端管理，例如兒童手錶、連網攝影機。</dd>
+          <dt>評估的連線</dt><dd>裝置與 App 的連線，再加上裝置與伺服器之間的連線。</dd>
+          <dt>評估內容</dt><dd>上述所有項目，再加上伺服器身分驗證、傳輸加密、更新傳送。評估重點在裝置與伺服器之間的連線。</dd>
+          <dt>對時程的影響</dt><dd>評估範圍最大，相對工作量最高。</dd>
+        </dl>
+      </div>
+    </figure>
+    <p>縮短時程的方式包括：於出貨前移除或永久停用非必要的介面與功能（送測版本須與上市版本一致，僅於測試樣品停用不予採認），以及及早啟動差距分析，縮短修補與複測週期。</p>
+    <p>提供產品架構與無線介面資訊後，實驗室可提供書面的檢測範疇與時程說明。</p>
+  </section>
+
+  <section class="part" id="cost">
+    <h2><span class="no">06</span>費用怎麼估？</h2>
+    <p>除檢測費用外，首次執行 EN&nbsp;18031 的製造商，通常還需投入產品修改與文件準備。事先掌握可能的成本項目，有助於預算規劃。</p>
+    <h3>可能的成本項目</h3>
+    <ul class="cost">
+      <li><b>A. 設計修改</b>：例如改為每台唯一的預設密碼、為韌體更新加入簽章驗證、為藍牙傳輸加密。此項常被低估，且對時程影響最大。</li>
+      <li><b>B. SBOM 與弱點掃描</b>：建立軟體物料清單，並更新或替換含已知漏洞的元件。</li>
+      <li><b>C. 技術文件準備</b>：決策樹路徑與理由、開發紀錄、使用者手冊等。</li>
+      <li><b>D. 實驗室檢測</b>：依檢測範圍計價，包含修補後的複測。</li>
+      <li><b>E. 公告機構評估</b>：僅涉及限制條件的產品需要。</li>
+    </ul>
+    <h3>影響報價的因素</h3>
+    <ol>
+      <li>適用幾份標準（-1、-2、-3）</li>
+      <li>產品架構（裝置、App、伺服器）</li>
+      <li>是否需要公告機構評估</li>
+      <li>出貨時帶有的無線與網路介面數量</li>
+      <li>需要幾輪修補與複測</li>
+    </ol>
+    <p class="callout">實際費用依產品條件而異，以書面報價為準。提供產品類型、無線介面與架構資訊後，實驗室可提供書面的檢測範疇、時程與報價。</p>
+
+    <h3>最後您會拿到什麼？</h3>
+    <ul>
+      <li><b>認可實驗室出具的檢測報告。</b>檢測在台北由通過 ISO/IEC 17025 認可的實驗室執行。</li>
+      <li><b>需要公告機構評估時的銜接。</b>檢測報告可提供予公告機構（如 Applus+ Laboratories，NB 0370）作為審查參考；證書由公告機構核發。</li>
+      <li><b>獨立的第三方證據。</b>依實驗室規範出具的第三方報告，可納入每項貼有 CE 標誌的產品都必須保存的技術文件，也是歐盟主管機關調閱時須提出的紀錄（見第 04 段的<a class="stage-link" href="#stage-4">報告階段</a>）。</li>
+    </ul>
+  </section>
+
+  <section class="part" id="cra">
+    <h2>EN&nbsp;18031 與 CRA 的銜接</h2>
+    <p>2027 年 12 月 11 日起，歐盟《網路韌性法案》（CRA）全面適用，接手 RED 的網路安全要求；歐盟已通過授權法規，Delegated Regulation (EU) 2022/30 將自同日起廢止。CRA 的適用範圍擴大到多數具數位元素的產品，包括獨立軟體。</p>
+    <p>EN&nbsp;18031 的檢測證據，預期部分可作為準備 CRA 的基礎；但 EN&nbsp;18031 本身在 CRA 下不具符合性推定，CRA 另有漏洞處理、SBOM 等要求。CRA 的通報義務已於 2026 年 9 月 11 日開始適用，含已上市的產品。及早建立 SBOM 與元件清冊，可同時支援 EN&nbsp;18031 與 CRA 的準備工作。詳見 <a href="https://securevectorlab.com/zh-hant/eu-cra">歐盟 CRA 專區</a>。</p>
+  </section>
+
+  <section class="part" id="next">
+    <h2>下一步</h2>
+    <p>評估範圍取決於產品架構：有沒有 App、有沒有伺服器，以及出貨時帶有哪些介面。透過一次簡短的範圍確認會談，即可確認需要檢測的部分，以及第 1 步要準備的資料。</p>
+    <ul class="next">
+      <li><a href="https://securevectorlab.com/zh-hant/en-18031#check">用 4 個問題判斷適用標準 →</a></li>
+      <li><a href="https://securevectorlab.com/zh-hant/en-18031#process">查閱 8 步檢測流程與送測準備清單 →</a></li>
+      <li style="grid-column:1/-1"><a href="https://securevectorlab.com/zh-hant/news/en-18031-testing-process">深入了解：EN&nbsp;18031 檢測項目詳解 →</a></li>
+      <li style="grid-column:1/-1"><a class="go" href="https://securevectorlab.com/zh-hant/en-18031#contact">預約範圍確認會談 →</a></li>
+    </ul>
+  </section>
+
+  <section class="part" id="faq">
+    <h2>常見問題</h2>
+    <details><summary>Q：同一項產品會同時適用好幾份 EN&nbsp;18031 嗎？</summary><div class="a"><p>會。三份標準對應三項不同的法規要求，各項要求累加適用。處理個人資料的連網產品，同時適用 EN&nbsp;18031-1 與 -2；若還涉及金錢交易，-3 也適用。</p></div></details>
+    <details><summary>Q：App 可以單獨取得 EN&nbsp;18031 檢測嗎？</summary><div class="a"><p>不行。RED 規範的是無線電設備，單獨的 App 不是無線電設備，因此 EN&nbsp;18031 沒有可檢測它的標的；App 是透過裝置與 App 之間的連線一併評估。獨立軟體自 2027 年 12 月 11 日起納入 CRA 規範；本身屬於醫療器材者，依醫療器材法規。</p></div></details>
+    <details><summary>Q：可以自我宣告的產品，還需要委託實驗室嗎？</summary><div class="a"><p>法規未強制委託第三方實驗室，檢測可由製造商自行執行。委託 ISO/IEC 17025 實驗室，可取得第三方檢測報告並納入技術文件。</p></div></details>
+    <details><summary>Q：產品韌體無法更新，可以符合 EN&nbsp;18031 嗎？</summary><div class="a"><p>可能可以。安全更新機制（SUM）依決策樹判定；產品確實無法更新時，製造商須提出不適用理由，並經實驗室審查。理由不成立時，將列為不符合項目。</p></div></details>
+    <p>其他問題，例如元件有已知漏洞、送測樣品的版本要求，請參閱 <a href="https://securevectorlab.com/zh-hant/en-18031">EN&nbsp;18031 檢測頁</a>的常見問題。</p>
+  </section>
+
+  <section class="part" id="terms">
+    <h2>名詞對照</h2>
+    <dl class="gloss">
+      <div><dt>RED（無線電設備指令，Directive 2014/53/EU）</dt><dd>規範使用無線電產品的歐盟法規；其網路安全要求自 2025 年 8 月 1 日起適用。</dd></div>
+      <div><dt>公告機構（Notified Body）</dt><dd>由歐盟會員國指定、執行符合性評估的獨立機構；每家都有四位數編號與授權範圍，列於歐盟 NANDO 資料庫。</dd></div>
+      <div><dt>歐盟符合性聲明（EU DoC）</dt><dd>製造商聲明產品符合歐盟要求的文件；無論是否有公告機構參與，一律由製造商簽署。</dd></div>
+      <div><dt>歐盟授權代表</dt><dd>歐盟境外製造商可指定、設立於歐盟的個人或公司，代為保管技術文件並回應主管機關的調閱。</dd></div>
+      <div><dt>ISO/IEC 17025</dt><dd>規範檢測與校正實驗室能力的國際標準。</dd></div>
+      <div><dt>重放攻擊（Replay attack）</dt><dd>錄下一個有效指令後再次送出，使裝置重複執行同一動作。</dd></div>
+    </dl>
+  </section>
+
+  <section class="part" id="sources">
+    <h2>資料來源</h2>
+    <ul class="src">
+      <li>Directive 2014/53/EU（無線電設備指令，RED）：製造商、進口商與經銷商義務</li>
+      <li><a href="https://eur-lex.europa.eu/eli/reg_del/2022/30/2023-10-27">Commission Delegated Regulation (EU) 2022/30</a>：RED 網路安全要求的適用範圍與排除項目</li>
+      <li>Commission Delegated Regulation (EU) 2023/2444：2022/30 延至 2025 年 8 月 1 日適用</li>
+      <li><a href="https://eur-lex.europa.eu/eli/dec_impl/2025/138/oj/eng">Commission Implementing Decision (EU) 2025/138</a>：EN&nbsp;18031 刊登於歐盟官方公報及其限制條件</li>
+      <li><a href="https://eur-lex.europa.eu/eli/reg/2024/2847/oj">Regulation (EU) 2024/2847（CRA）</a></li>
+    </ul>
+    <p class="byline">文／安合規律 × Applus+ Laboratories</p>
+    <p class="disc">＊本文為法規與標準解讀性質，非法律意見。實際檢測方案，將依主管機關的最新要求及產品的實際架構與用途個案確認；個別產品是否落入 RED 的範圍，仍應依法規本文與主管機關解釋逐案認定。</p>
+  </section>
+
+</div>
+</main>
+
+<section class="band" id="contact">
+  <div class="wrap">
+    <div class="in">
+      <div>
+        <h2>確認您的產品要測哪些部分</h2>
+        <p>提供產品類型、無線介面與架構資訊，實驗室團隊於 1–2 個工作天內回覆，並提供書面的檢測範疇、時程與報價。</p>
+      </div>
+      <a class="btn" href="https://securevectorlab.com/zh-hant/en-18031#contact">預約範圍確認會談</a>
+    </div>
+    <ul class="cred"><li>ISO/IEC 17025 實驗室</li><li>Applus+ Laboratories Recognized Laboratory</li><li>RED 公告機構 Applus+ Laboratories NB 0370</li></ul>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© Secure Vectors Surveillance Inc. · 安合規律檢驗有限公司 · 版權所有</span><span>測試、檢驗與驗證（TIC）實驗室 · 台灣台北</span></div></footer>
+
+<script>
+/* 目錄：標示目前閱讀的段落 */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a'));if(!links.length||!window.IntersectionObserver)return;
+  var ul=document.querySelector('.toc'),cur=null;
+  function mark(id){links.forEach(function(a){var on=a.getAttribute('href')==='#'+id;a.classList.toggle('on',on);if(on&&a!==cur){cur=a;if(ul.scrollWidth>ul.clientWidth)ul.scrollTo({left:a.parentNode.offsetLeft-16,behavior:'smooth'});}});}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)mark(e.target.id)})},{rootMargin:'-130px 0px -60% 0px'});
+  links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)io.observe(s)});
+})();
+/* 04 八步驟圖：各階段說明可展開收合；未執行 JS 時全部顯示 */
+(function(){
+  var btns=[].slice.call(document.querySelectorAll('.ph-more'));if(!btns.length)return;
+  function set(b,open){b.setAttribute('aria-expanded',open?'true':'false');b.textContent=open?'收合說明':'展開說明';document.getElementById(b.getAttribute('aria-controls')).hidden=!open;}
+  btns.forEach(function(b){set(b,false);b.addEventListener('click',function(){set(b,b.getAttribute('aria-expanded')!=='true')});});
+  function openHash(h){var m=/^#stage-(\d)$/.exec(h||'');if(!m)return;var b=document.getElementById('stbtn-'+m[1]);if(b)set(b,true);}
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#stage-"]');if(a)openHash(a.getAttribute('href'));});
+  openHash(location.hash);
+})();
+/* 05 架構圖：點選切換；未執行 JS 時三個面板全部顯示 */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.arch-tab'));if(!tabs.length)return;
+  function sel(t){tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on?'true':'false');x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on;});}
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){sel(t)});
+    t.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];if(e.key==='ArrowLeft')n=tabs[(i+tabs.length-1)%tabs.length];if(n){e.preventDefault();n.focus();sel(n);}});
+  });
+  sel(tabs[0]);
+})();
+/* CJK 斷行：依詞語切分，只在詞與詞之間換行 */
+(function(){
+  if(!(window.Intl&&Intl.Segmenter))return;
+  var seg=new Intl.Segmenter(document.documentElement.lang||'zh',{granularity:'word'});
+  var CJK=/[㐀-鿿]/, NOSTART=/^[，。、；：！？）」』】》〉,.;:!?)\]%]/, NOEND=/[（「『【《〈(\[]$/;
+  var PROT=/(安合規律|安合规律|安合實驗室|安合实验室)/;
+  var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,OPTION:1,SELECT:1,CODE:1,TITLE:1};
+  function wrap(root){
+    var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var p=n.parentElement;return(!p||SKIP[p.tagName]||!CJK.test(n.nodeValue))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}});
+    var list=[];while(tw.nextNode())list.push(tw.currentNode);
+    list.forEach(function(n){
+      var parts=[];n.nodeValue.split(PROT).forEach(function(c,k){if(!c)return;if(k%2)parts.push(c);else Array.from(seg.segment(c),function(x){parts.push(x.segment)})});
+      if(parts.length<2)return;
+      var f=document.createDocumentFragment(),prev='';
+      parts.forEach(function(s,i){
+        if(i&&!NOSTART.test(s)&&!NOEND.test(prev)&&!/\s$/.test(prev)&&!/^\s/.test(s))f.appendChild(document.createElement('wbr'));
+        f.appendChild(document.createTextNode(s));prev=s;
+      });
+      n.parentNode.replaceChild(f,n);
+    });
+  }
+  document.documentElement.classList.add('cjk-seg');
+  wrap(document.body);
+  var mo=new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){if(n.nodeType===1&&n.tagName!=='WBR')wrap(n)})})});
+  ['qpanel','trail','groups'].forEach(function(id){var el=document.getElementById(id);if(el)mo.observe(el,{childList:true,subtree:true})});
+})();
+</script>
+</body>
+</html>
